@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from phonenumber_field.modelfields import PhoneNumberField as PhoneNumber
 # Create your models here.
 
 
@@ -8,7 +9,7 @@ class User(AbstractUser):
     email_active_code = models.CharField(max_length=100, verbose_name='کد فعالسازی ایمیل ', null=True)
     about_user = models.TextField(null=True, blank=True, verbose_name='درباره کاربر')
     address = models.TextField(null=True, blank=True, verbose_name='آدرس')
-    phone_number = models.CharField(blank=True, max_length=22, null=True, verbose_name='شماره همراه')
+    phone_number = PhoneNumber(blank=True, max_length=22, null=True, verbose_name='شماره همراه', unique=True)
 
     class Meta:
         verbose_name = 'کاربر'
