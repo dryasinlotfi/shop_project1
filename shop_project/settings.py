@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'phonenumbers',
     'django_render_partial',
-    'thumbnail',
+    'sorl.thumbnail',
     'polls',
 ]
 
