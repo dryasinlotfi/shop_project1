@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField as PhoneNumber
@@ -19,3 +21,15 @@ class User(AbstractUser):
         if self.first_name is not '' and self.last_name is not '':
             return self.get_full_name()
         return self.email
+
+
+class OTPRequest(models.Model):
+    class OTPChannel(models.TextChoices):
+        PHONE = 'phone'
+        EMAIL = 'E-MAIL'
+    request_id = models.UUIDField(primary_key=True, editable=False,default=uuid.uuid4)
+    channel = models.CharField(max_length=10, choices=OTPChannel.choices, default=OTPChannel.PHONE)
+    receiver = models.CharField(max_length=50)
+    password = models.CharField(max_length=4)
+    created = models.DateTimeField(auto_now=True, editable=False)
+
