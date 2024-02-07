@@ -1,8 +1,15 @@
+import random
+import string
 import uuid
+
 
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from phonenumber_field.modelfields import PhoneNumberField as PhoneNumber
+
+from account_module.sender import send_otp
+
+
 # Create your models here.
 
 
@@ -23,6 +30,20 @@ class User(AbstractUser):
         return self.email
 
 
+class OTPManager(models.Manager):
+    def generate(self, data):
+        otp = self.model(channel=data['channel'], receiver=data['receiver'])
+        otp.save(using=self._db)
+        send_otp(otp)
+        return
+
+
+def generate_otp():
+    rand = random.SystemRandom
+    digits = rand.choices(string.digits, k=4)
+    return ''.join(digits)
+
+
 class OTPRequest(models.Model):
     class OTPChannel(models.TextChoices):
         PHONE = 'phone'
@@ -30,6 +51,10 @@ class OTPRequest(models.Model):
     request_id = models.UUIDField(primary_key=True, editable=False,default=uuid.uuid4)
     channel = models.CharField(max_length=10, choices=OTPChannel.choices, default=OTPChannel.PHONE)
     receiver = models.CharField(max_length=50)
-    password = models.CharField(max_length=4)
+    password = models.CharField(max_length=4, default=generate_otp)
     created = models.DateTimeField(auto_now=True, editable=False)
+    object = OTPManager()
 
+    class Meta:
+        verbose_name = 'اطلاعات ورود کاربر'
+        verbose_name_plural = 'اطلاعات ورود کاربران '

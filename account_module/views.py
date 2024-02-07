@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render
 from django.template.context_processors import request
 from django.http import HttpResponse
@@ -7,14 +7,22 @@ from rest_framework.response import Response
 
 from rest_framework.views import APIView
 from . import serialaizers
+from .models import OTPRequest
+
 
 # Create your views here.
 
 class OTPView(APIView):
-    def get(self):
+    def get(self, request, *args, **kwargs):
         serializer = serialaizers.RequestOTPSerializer(data=request.query_parms)
         if serializer.is_valid():
-             pass
+             data = serializer.validated_data
+             try:
+                 otp = OTPRequest.objects.generate(data)
+                 return Response(data=serialaizers.RequestOTPResponseSerializer(otp).data)
+             except Exception as e:
+                 return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR, data=serializer.errors)
+
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST, data=serializer.errors)
 

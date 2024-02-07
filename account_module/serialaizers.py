@@ -4,7 +4,7 @@ from .models import OTPRequest
 
 class RequestOTPSerializer(serializers.Serializer):
     receiver = serializers.CharField(max_length=50, allow_null=False)
-    channel = serializers.CharField(allow_null=False, choices=OTPRequest.OTPChannel)
+    channel = serializers.ChoiceField(allow_null=False,choices=OTPRequest.OTPChannel)
 
 
 class RequestOTPResponseSerializer(serializers.ModelSerializer):
@@ -12,3 +12,8 @@ class RequestOTPResponseSerializer(serializers.ModelSerializer):
         model = OTPRequest
         fields = ['request_id']
 
+class VerifyOtpRequestSerializer(serializers.Serializer):
+    request_id = serializers.CharField(max_length=64, allow_null=False)
+    password = serializers.CharField(max_length=64, allow_null=False)
+
+class ObtainOtpSerializer
