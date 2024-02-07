@@ -1,8 +1,9 @@
-from django.http import HttpResponse, HttpRequest
+from django.http import HttpResponse, HttpRequest, request
 from django.shortcuts import render
-from django.template.context_processors import request
+
 from django.http import HttpResponse
-from rest_framework import status
+from rest_framework import status,
+request
 from rest_framework.response import Response
 
 from rest_framework.views import APIView
@@ -27,4 +28,13 @@ class OTPView(APIView):
             return Response(status=status.HTTP_400_BAD_REQUEST, data=serializer.errors)
 
     def post(self):
-        pass
+        serializer = serialaizers.VerifyOtpRequestSerializer(data=request.data)
+        if serializer.is_valid():
+            data = serializer.validated_data
+            if OTPRequest.objects.is_valid(data['receiver'], data['request_id'], data['password']):
+                pass
+            else:
+                return Response(status=status.HTTP_400_BAD_REQUEST, data=serializer.errors)
+
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST, data=serializer.errors)

@@ -30,7 +30,23 @@ class User(AbstractUser):
         return self.email
 
 
+class OtpRequestQuerySet(models.QuerySet):
+    def is_valid(self, receiver, request, password):
+        return self.first(
+            receiver=receiver,
+            request=request,
+            password=password
+        ).exist()
+
+
 class OTPManager(models.Manager):
+
+    def get_queryset(self):
+        return OtpRequestQuerySet(self.model, self._db)
+
+    def is_valid(self, receiver, request, password):
+        return self.get_queryset().is_valid(receiver, request, password)
+
     def generate(self, data):
         otp = self.model(channel=data['channel'], receiver=data['receiver'])
         otp.save(using=self._db)
