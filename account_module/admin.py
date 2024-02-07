@@ -1,5 +1,8 @@
 from django.contrib import admin
-from .models import User, OTPRequest
+
+from account_module.models import User
+
+
 # Register your models here.
 
 
@@ -8,6 +11,3 @@ class Admin(admin.ModelAdmin):
     list_display = ['username', 'email', 'is_staff']
 
 
-@admin.register(OTPRequest)
-class OTPAdmin(admin.ModelAdmin):
-    list_display = ['channel', 'receiver']
