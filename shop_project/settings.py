@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'polls',
     'rest_framework',
     'rest_framework_simplejwt',
+    'todo',
 ]
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
