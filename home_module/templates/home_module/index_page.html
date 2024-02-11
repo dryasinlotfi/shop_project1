@@ -1,0 +1,20 @@
+{% extends 'shared/layout.html' %}
+{% load thumbnail %}
+{% load poll_extras %}
+{% load render_partial %}
+{% block title %}
+	 فروشگاه |صفحه اصلی
+{% endblock %}
+
+{% block content %}
+    <h1>welcome to the first course</h1>
+    <hr>
+    <ul>
+    {% for todo in todos %}
+    	<li>{{ todo.title }}</li>
+    {% endfor %}
+
+    </ul>
+{% endblock %}
+
+

@@ -40,9 +40,21 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'account_module',
+    'home_module',
     'phonenumber_field',
     'phonenumbers',
+    'django_render_partial',
+    'sorl.thumbnail',
+    'polls',
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'todo',
 ]
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
