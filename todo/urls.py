@@ -6,6 +6,7 @@ from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 router.register('', views.TodoViewSetApiView)
 
+
 urlpatterns = [
     path('', views.all_todos),
     path('<int:todo_id>', views.todo_detail_view),
