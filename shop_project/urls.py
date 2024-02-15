@@ -23,7 +23,7 @@ from rest_framework.authtoken.views import obtain_auth_token
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home_module.urls')),
-    path('api/users', include('account_module.urls')),
+    path('user/', include('account_module.urls')),
     path('api-auth/', include('rest_framework.urls')),
     path('todos/', include('todo.urls')),
     path('auth-token/', obtain_auth_token, name='generate_auth_token'),

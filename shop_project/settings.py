@@ -41,7 +41,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'account_module',
     'home_module',
-    'phonenumber_field',
     'phonenumbers',
     'django_render_partial',
     'sorl.thumbnail',
@@ -50,6 +49,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'todo',
     'rest_framework.authtoken',
+    'phonenumber_field',
+    'babel',
 ]
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -175,7 +176,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 2,
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication'
+        'rest_framework.authentication.BasicAuthentication'
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',

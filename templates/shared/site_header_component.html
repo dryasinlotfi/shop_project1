@@ -114,29 +114,7 @@
                                             </a>
                                         </li>
 
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                User
-                                                <i class="bx bx-chevron-down"></i>
-                                            </a>
-                                            <ul class="dropdown-menu" style="display: none;">
-                                                <li class="nav-item">
-                                                    <a href="log-in.html" class="nav-link">
-                                                        Log In
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="register.html" class="nav-link">
-                                                        Registration
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="forget-password.html" class="nav-link">
-                                                        Forget Password
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        <a class="mean-expand" href="#" style="font-size: 18px">+</a></li>
+
 
                                         <li class="nav-item">
                                             <a href="terms-condition.html" class="nav-link">
@@ -229,22 +207,6 @@
                                     </a>
                                 </li>
                             </ul>
-
-                            <div class="nav-bar-side-2">
-                                <div class="language-nav-list">
-                                    <select class="language-list-item" style="display: none;">
-                                        <option>English</option>
-                                        <option>ایران</option>
-                                        <option>Deutsch</option>
-                                        <option>Português</option>
-                                        <option>简体中文</option>
-                                    </select><div class="nice-select language-list-item" tabindex="0"><span class="current">English</span><ul class="list" style="display: none;"><li data-value="English" class="option selected">English</li><li data-value="العربيّة" class="option">العربيّة</li><li data-value="Deutsch" class="option">Deutsch</li><li data-value="Português" class="option">Português</li><li data-value="简体中文" class="option mean-last">简体中文</li></ul></div>
-                                </div>
-                                <div class="side-nav-cart">
-                                    <a href="#"><i class="bx bx-cart"></i></a>
-                                    <span>1</span>
-                                </div>
-                            </div>
                         </nav></div>
                 <a href="index.html" class="logo">
                     <img src="/static/header_footer/images/logos/logo-1.png" alt="Logo">
@@ -488,6 +450,30 @@
                                         Contact
                                     </a>
                                 </li>
+
+                                  <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        User
+                                        <i class="bx bx-chevron-down"></i>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item">
+                                            <a href="{% url 'register_form' %}" class="nav-link">
+                                                Register
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="blog-2.html" class="nav-link">
+                                                Log In
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="blog-details.html" class="nav-link">
+                                                Forget password
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
                             </ul>
 
                             <div class="nav-bar-side-2">
@@ -520,28 +506,28 @@
                         </div>
                     </div>
 
-                    <div class="container-3 active">
-                        <div class="side-nav-inner">
-                            <div class="side-nav justify-content-center align-items-center">
-                                <div class="side-nav-item">
-                                    <div class="language-on-list">
-                                        <select class="language-list-item" style="display: none;">
-                                            <option>English</option>
-                                            <option>العربيّة</option>
-                                            <option>Deutsch</option>
-                                            <option>Português</option>
-                                            <option>简体中文</option>
-                                        </select><div class="nice-select language-list-item" tabindex="0"><span class="current">English</span><ul class="list"><li data-value="English" class="option selected">English</li><li data-value="العربيّة" class="option">العربيّة</li><li data-value="Deutsch" class="option">Deutsch</li><li data-value="Português" class="option">Português</li><li data-value="简体中文" class="option">简体中文</li></ul></div>
-                                    </div>
-
-                                    <div class="side-nav-cart">
-                                        <a href="#"><i class="bx bx-cart"></i></a>
-                                        <span>1</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+{#                    <div class="container-3 active">#}
+{#                        <div class="side-nav-inner">#}
+{#                            <div class="side-nav justify-content-center align-items-center">#}
+{#                                <div class="side-nav-item">#}
+{#                                    <div class="language-on-list">#}
+{#                                        <select class="language-list-item" style="display: none;">#}
+{#                                            <option>English</option>#}
+{#                                            <option>العربيّة</option>#}
+{#                                            <option>Deutsch</option>#}
+{#                                            <option>Português</option>#}
+{#                                            <option>简体中文</option>#}
+{#                                        </select><div class="nice-select language-list-item" tabindex="0"><span class="current">English</span><ul class="list"><li data-value="English" class="option selected">English</li><li data-value="العربيّة" class="option">العربيّة</li><li data-value="Deutsch" class="option">Deutsch</li><li data-value="Português" class="option">Português</li><li data-value="简体中文" class="option">简体中文</li></ul></div>#}
+{#                                    </div>#}
+{##}
+{#                                    <div class="side-nav-cart">#}
+{#                                        <a href="#"><i class="bx bx-cart"></i></a>#}
+{#                                        <span>1</span>#}
+{#                                    </div>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
                 </div>
             </div>
         </div>
