@@ -1,0 +1,49 @@
+{% extends 'shared/layout.html' %}
+
+{% block title %}
+	صفحه ورود کاربر
+{% endblock %}
+
+{% block content %}
+	<div class="user-area pt-100 pb-70">
+            <div class="container">
+                <div class="user-width">
+                    <div class="user-form">
+                        <div class="contact-form">
+                            <h2>صفحه ورود</h2>
+                            <form method="post">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-lg-12 ">
+                                        <div class="form-group">
+{#                                            <input type="text" class="form-control" required="" data-error="Please enter your Username" placeholder="Enter Your Username">#}
+
+                                            {{ login_form.username.label_tag }}
+                                            {{ login_form.username }}
+                                            {{ login_form.username.errors }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 ">
+                                        <div class="form-group">
+{#                                            <input type="email" class="form-control" required="" data-error="Please enter your Username or Email" placeholder="Enter Your Email">#}
+                                            {{ login_form.password.label_tag }}
+                                            {{ login_form.password }}
+                                            {{ login_form.password.errors }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 ">
+                                        <button type="submit" class="default-btn btn-bg-three">
+                                            ورود
+                                        </button>
+                                        <a href="{% url 'register_form' %}" class="text-decoration-none">ثبت نام کنید؟</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{% endblock %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views import View
-from account_module.forms import RegisterForm
+from account_module.forms import RegisterForm, LoginForm, ForgetPasswordForm
 
 
 class RegisterView(View):
@@ -10,3 +10,21 @@ class RegisterView(View):
             'register_form': register_form
         }
         return render(request, 'account_module/register.html', context)
+
+
+class LoginView(View):
+    def get(self, request):
+        login_form = LoginForm
+        context = {
+            'login_form': login_form
+        }
+        return render(request, 'account_module/login.html', context)
+
+
+class ForgetPasswordView(View):
+    def get(self, request):
+        forget_form = ForgetPasswordForm
+        context = {
+            'forget_form': forget_form
+        }
+        return render(request, 'account_module/forget_password.html', context)

@@ -225,7 +225,7 @@
                         <div class="mean-push"></div><div class="collapse navbar-collapse mean-menu" id="navbarSupportedContent" style="display: none;">
                             <ul class="navbar-nav m-auto">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link active">
+                                    <a href="{% url 'home_page' %}" class="nav-link active">
                                         خانه
                                         <i class="bx bx-chevron-down"></i>
                                     </a>
@@ -447,29 +447,29 @@
 
                                 <li class="nav-item">
                                     <a href="contact.html" class="nav-link">
-                                        Contact
+                                        تماس با ما
                                     </a>
                                 </li>
 
                                   <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        User
+                                        کاربر
                                         <i class="bx bx-chevron-down"></i>
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li class="nav-item">
                                             <a href="{% url 'register_form' %}" class="nav-link">
-                                                Register
+                                                ثبت نام
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="blog-2.html" class="nav-link">
-                                                Log In
+                                            <a href="{% url 'login_form' %}" class="nav-link">
+                                                ورود
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="blog-details.html" class="nav-link">
-                                                Forget password
+                                            <a href="{% url 'forget_form' %}" class="nav-link">
+                                                فراموشی کلمه عبور
                                             </a>
                                         </li>
                                     </ul>
