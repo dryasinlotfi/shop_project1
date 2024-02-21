@@ -1,13 +1,16 @@
 
 from django.core import validators
 from django import forms
+from django.core.exceptions import ValidationError
 from phonenumber_field.formfields import PhoneNumberField
 from phonenumber_field.widgets import PhoneNumberPrefixWidget
 import phonenumbers
 from phonenumbers import PhoneNumber
 
+from account_module.models import User
 
-class RegisterForm(forms.Form):
+
+class RegisterForm(forms.ModelForm):
     phone_number = forms.IntegerField(
         label='شماره تلفن',
         widget=forms.NumberInput(attrs={'class': 'form-control', 'type': 'email'})
@@ -34,12 +37,32 @@ class RegisterForm(forms.Form):
         ]
     )
 
-    def clean_confirm_password(self):
-        password = self.cleaned_data.get('password')
-        confirm_password = self.cleaned_data.get('confirm_password')
+    class Meta:
+        model = User
+        fields = ('email', 'phone_number', 'username')
 
-        if password == confirm_password:
-            return confirm_password
+    def clean_confirm_password(self):
+        cd = self.cleaned_data
+        if cd ['password'] and cd['confirm_password'] and cd['password'] != cd ['confirm_password']:
+            raise ValidationError('password dont match')
+        return cd['confirm_password']
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data['password'])
+        if commit:
+            user.save()
+        return user
+
+
+
+
+    # def clean_confirm_password(self):
+    #     password = self.cleaned_data.get('password')
+    #     confirm_password = self.cleaned_data.get('confirm_password')
+    #
+    #     if password == confirm_password:
+    #         return confirm_password
 
 
 class LoginForm(forms.Form):

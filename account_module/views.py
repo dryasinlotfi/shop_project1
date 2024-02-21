@@ -11,6 +11,10 @@ class RegisterView(View):
         }
         return render(request, 'account_module/register.html', context)
 
+    def post(self, request):
+        pass
+
+
 
 class LoginView(View):
     def get(self, request):
