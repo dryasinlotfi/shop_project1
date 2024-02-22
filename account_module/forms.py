@@ -2,6 +2,7 @@
 from django.core import validators
 from django import forms
 from django.core.exceptions import ValidationError
+from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from phonenumber_field.formfields import PhoneNumberField
 from phonenumber_field.widgets import PhoneNumberPrefixWidget
 import phonenumbers
@@ -20,6 +21,14 @@ class RegisterForm(forms.ModelForm):
         widget=forms.TextInput(attrs={'class': 'form-control', 'type': 'username'}),
         validators=[
             validators.MaxLengthValidator(15)
+        ]
+    )
+    email = forms.EmailField(
+        label='ایمیل',
+        widget=forms.EmailInput(),
+        validators=[
+            validators.MaxLengthValidator(100),
+            validators.EmailValidator,
         ]
     )
     password = forms.CharField(
@@ -54,8 +63,16 @@ class RegisterForm(forms.ModelForm):
             user.save()
         return user
 
+class UserChangeForm(forms.ModelForm):
+    password = ReadOnlyPasswordHashField(help_text='you cant change password <a href=\".../password/\"> this form </a>. ')
+
+    class Meta:
+        model = User
+        fields = ('email', 'phone_number', 'username', 'password', 'last_login')
 
 
+class VerifyCodeForm(forms.Form):
+    code = forms.IntegerField()
 
     # def clean_confirm_password(self):
     #     password = self.cleaned_data.get('password')
