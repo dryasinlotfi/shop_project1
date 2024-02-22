@@ -8,13 +8,13 @@ from phonenumber_field.widgets import PhoneNumberPrefixWidget
 import phonenumbers
 from phonenumbers import PhoneNumber
 
-from account_module.models import User
+from account_module.models import User, OtpCode
 
 
 class RegisterForm(forms.ModelForm):
-    phone_number = forms.IntegerField(
+    phone_number = forms.CharField(
         label='شماره تلفن',
-        widget=forms.NumberInput(attrs={'class': 'form-control', 'type': 'email'})
+        widget=forms.TextInput(attrs={'class': 'form-control'})
     )
     username = forms.CharField(
         label='نام کاربری',
@@ -25,7 +25,7 @@ class RegisterForm(forms.ModelForm):
     )
     email = forms.EmailField(
         label='ایمیل',
-        widget=forms.EmailInput(),
+        widget=forms.EmailInput(attrs={'class': 'form-control', 'type': 'email'}),
         validators=[
             validators.MaxLengthValidator(100),
             validators.EmailValidator,
@@ -52,7 +52,7 @@ class RegisterForm(forms.ModelForm):
 
     def clean_confirm_password(self):
         cd = self.cleaned_data
-        if cd ['password'] and cd['confirm_password'] and cd['password'] != cd ['confirm_password']:
+        if cd ['password'] and cd['confirm_password'] and cd['password'] != cd['confirm_password']:
             raise ValidationError('password dont match')
         return cd['confirm_password']
 
@@ -62,6 +62,41 @@ class RegisterForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+
+class UserRegistrationForm(forms.Form):
+    email = forms.EmailField(
+        label='ایمیل',
+        widget=forms.TextInput(attrs={'class': 'form-control', 'type': 'email'})
+    )
+    username = forms.CharField(
+        label='نام کاربری',
+        widget=forms.TextInput(attrs={'class': 'form-control', 'type': 'username'}),
+    )
+    phone_number = forms.CharField(
+        max_length=11,
+        label='شماره تلفن',
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control', 'type': 'passwrd'}),
+        label='کلمه عبور',
+    )
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        user = User.objects.filter(email=email).exists()
+        if user:
+            raise ValidationError('This email already exists')
+        return email
+
+    def clean_phone(self):
+        phone_number = self.cleaned_data['phone_number']
+        user = User.objects.filter(phone_number=phone_number).exists()
+        if user:
+            raise ValidationError('This phone number already exists')
+        OtpCode.objects.filter(phone_number=phone_number).delete()
+        return phone_number
 
 class UserChangeForm(forms.ModelForm):
     password = ReadOnlyPasswordHashField(help_text='you cant change password <a href=\".../password/\"> this form </a>. ')

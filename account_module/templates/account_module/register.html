@@ -11,7 +11,7 @@
                     <div class="user-form">
                         <div class="contact-form">
                             <h2>هم اکنون ثبت نام کنید</h2>
-                            <form action="{% url 'login_form' %}" method="post">
+                            <form action="" method="post">
                                 {% csrf_token %}
                                 <div class="row">
                                     <div class="col-lg-12 ">
@@ -21,6 +21,14 @@
                                             {{ register_form.phone_number.label_tag }}
                                             {{ register_form.phone_number }}
                                             {{ register_form.phone_number.errors }}
+                                        </div>
+                                    </div>  <div class="col-lg-12 ">
+                                        <div class="form-group">
+{#                                            <input type="text" class="form-control" required="" data-error="Please enter your Username" placeholder="Enter Your Username">#}
+
+                                            {{ register_form.email.label_tag }}
+                                            {{ register_form.email }}
+                                            {{ register_form.email.errors }}
                                         </div>
                                     </div>
                                     <div class="col-lg-12 ">
@@ -42,14 +50,14 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-12">
-                                        <div class="form-group">
+{#                                    <div class="col-12">#}
+{#                                        <div class="form-group">#}
 {#                                            <input class="form-control" type="password" name="password" placeholder="Password">#}
-                                            {{ register_form.confirm_password.label_tag }}
-                                            {{ register_form.confirm_password }}
-                                            {{ register_form.confirm_password.errors }}
-                                        </div>
-                                    </div>
+{#                                            {{ register_form.confirm_password.label_tag }}#}
+{#                                            {{ register_form.confirm_password }}#}
+{#                                            {{ register_form.confirm_password.errors }}#}
+{#                                        </div>#}
+{#                                    </div>#}
 
                                     <div class="col-lg-12 ">
                                         <button type="submit" class="default-btn btn-bg-three">
