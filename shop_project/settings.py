@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'phonenumber_field',
     'babel',
+    'rest_api',
+    'celery',
 ]
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [

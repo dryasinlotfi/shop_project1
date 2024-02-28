@@ -2,12 +2,7 @@
 from django.core import validators
 from django import forms
 from django.core.exceptions import ValidationError
-from django.contrib.auth.forms import ReadOnlyPasswordHashField
-from phonenumber_field.formfields import PhoneNumberField
-from phonenumber_field.widgets import PhoneNumberPrefixWidget
-import phonenumbers
-from phonenumbers import PhoneNumber
-
+from django.contrib.auth.forms import ReadOnlyPasswordHashField, AuthenticationForm
 from account_module.models import User, OtpCode
 
 
@@ -87,16 +82,17 @@ class UserRegistrationForm(forms.Form):
         email = self.cleaned_data['email']
         user = User.objects.filter(email=email).exists()
         if user:
-            raise ValidationError('This email already exists')
+            raise ValidationError('این ایمیل قبلا ثبت شده است!')
         return email
 
     def clean_phone(self):
         phone_number = self.cleaned_data['phone_number']
         user = User.objects.filter(phone_number=phone_number).exists()
         if user:
-            raise ValidationError('This phone number already exists')
+            raise ValidationError('این شماره تلفن قبلا ثبت شده است!')
         OtpCode.objects.filter(phone_number=phone_number).delete()
         return phone_number
+
 
 class UserChangeForm(forms.ModelForm):
     password = ReadOnlyPasswordHashField(help_text='you cant change password <a href=\".../password/\"> this form </a>. ')
@@ -107,7 +103,10 @@ class UserChangeForm(forms.ModelForm):
 
 
 class VerifyCodeForm(forms.Form):
-    code = forms.IntegerField()
+    code = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control'}),
+        label='کد یکبار مصرف',
+    )
 
     # def clean_confirm_password(self):
     #     password = self.cleaned_data.get('password')
@@ -118,12 +117,10 @@ class VerifyCodeForm(forms.Form):
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField(
-        label='نام کاربری',
-        widget=forms.TextInput(attrs={'class': 'form-control', 'type': 'username'}),
-        validators=[
-            validators.MaxLengthValidator(15)
-        ]
+    phone_number = forms.CharField(
+        max_length=11,
+        label='شماره تلفن',
+        widget=forms.TextInput(attrs={'class': 'form-control'})
     )
     password = forms.CharField(
         label='کلمه عبور',
@@ -132,6 +129,14 @@ class LoginForm(forms.Form):
             validators.MaxLengthValidator(100),
         ]
     )
+
+    class Meta:
+        model = User
+        fields = ('phone_number', 'password')
+
+
+
+
 
 
 class ForgetPasswordForm(forms.Form):

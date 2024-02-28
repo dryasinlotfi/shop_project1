@@ -457,21 +457,31 @@
                                         <i class="bx bx-chevron-down"></i>
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li class="nav-item">
-                                            <a href="{% url 'register_form' %}" class="nav-link">
-                                                ثبت نام
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{% url 'login_form' %}" class="nav-link">
-                                                ورود
-                                            </a>
-                                        </li>
+
+                                        {% if request.user.is_authenticated %}
+
                                         <li class="nav-item">
                                             <a href="{% url 'forget_form' %}" class="nav-link">
                                                 فراموشی کلمه عبور
                                             </a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a href="{% url 'logout_user' %}" class="nav-link">
+                                                خروج از حساب
+                                            </a>
+                                        </li>
+                                            {% else %}
+                                                <li class="nav-item">
+                                                    <a href="{% url 'register_form' %}" class="nav-link">
+                                                ثبت نام
+                                            </a>
+                                        </li>
+                                             	<li class="nav-item">
+                                            <a href="{% url 'login_form' %}" class="nav-link">
+                                                ورود
+                                            </a>
+                                        </li>
+                                        {% endif %}
                                     </ul>
                                 </li>
                             </ul>
