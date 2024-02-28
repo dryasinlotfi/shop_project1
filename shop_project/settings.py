@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'babel',
     'rest_api',
     'celery',
+    'product_module',
 ]
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
